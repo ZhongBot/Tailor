@@ -1,5 +1,10 @@
 # Tailor
 
+#IMPORTANT NOTE
+Always prefix your branch with your initials.
+Example: LZ-new-branch
+
+
 #First meeting
 - 4 components to the project
     1. Scrapper
