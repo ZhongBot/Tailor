@@ -62,7 +62,7 @@ NEWSPIDER_MODULE = 'scrapper.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'scrapper.pipelines.clothingPipeline': 300,
+    'scrapper.pipelines.americanEaglePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
