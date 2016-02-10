@@ -19,5 +19,5 @@ Tech Stack
 - Python
 - MongoDB
 
-Scrapper should scrap for: t-shirt, graphic tees, long sleeve, polo and dress shirt
-
+Februray 8th:
+-Spider on American Eagle is now working. Run 'scrapy crawl american_eagle_spider -o test.json' in the spider folder and observe the results
