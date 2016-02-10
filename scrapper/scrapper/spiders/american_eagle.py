@@ -3,6 +3,7 @@ import pdb
 import re, json
 
 from scrapper.items import menTop
+from scrapper.pipelines import *
 
 class americanEagleSpider(scrapy.Spider):
     name = 'american_eagle_spider'
@@ -10,7 +11,10 @@ class americanEagleSpider(scrapy.Spider):
     start_urls = [
         "https://www.ae.com/web/browse/category.jsp?catId=cat10025&navdetail=mega:men:c2:p1"
     ]
-    
+    pipeline = set([
+        americanEaglePipeline
+    ])    
+
     def parse(self, response):
         # Extract the subcategory names and link from the male top page
         res = response.css('.navHeader').css('.menu')[0]
@@ -41,5 +45,4 @@ class americanEagleSpider(scrapy.Spider):
         res = dict()
         res['category'] = response.meta['category']
         res['products'] = data['availablePrds'].items()
-        
         yield res

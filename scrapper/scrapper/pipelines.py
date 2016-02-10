@@ -8,7 +8,9 @@
 import pdb
 import pymongo
 
-class clothingPipeline(object):
+from scrapper.spiders.base import check_spider_pipeline
+
+class americanEaglePipeline(object):
     collection_name = 'tops'
 
     def __init__(self, mongo_uri, mongo_db):
@@ -29,11 +31,12 @@ class clothingPipeline(object):
     def close_spider(self, spider):
         self.client.close()
 
+    @check_spider_pipeline
     def process_item(self, item, spider):
         category = item['category']
         products = item['products']
         for pid, info in products:
-            #Extract the variation data and then remove from original dict
+        #Extract the variation data and then remove from original dict
             variations = [vari[1] for vari in info['colorImageSelectionData'].items()]
             del info['colorImageSelectionData']
             del info['classId']
@@ -49,3 +52,4 @@ class clothingPipeline(object):
                 del variation['imgViews']
                 entry.update(variation)
                 self.db[self.collection_name].insert(entry)
+
