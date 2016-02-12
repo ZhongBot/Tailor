@@ -8,6 +8,9 @@
 import pdb
 import pymongo
 
+from scrapy import log
+from scrapy.exceptions import DropItem
+from scrapper.model.top import topItem
 from scrapper.spiders.base import check_spider_pipeline
 
 class americanEaglePipeline(object):
@@ -35,21 +38,23 @@ class americanEaglePipeline(object):
     def process_item(self, item, spider):
         category = item['category']
         products = item['products']
+        img_url_template = "pics.ae.com/is/image/aeo/%s_of?fit=crop&wid=450&hei=504&qlt=50,0"
+        entry = topItem()
         for pid, info in products:
         #Extract the variation data and then remove from original dict
             variations = [vari[1] for vari in info['colorImageSelectionData'].items()]
-            del info['colorImageSelectionData']
-            del info['classId']
-            del info['bundleCatId']
-            del info['defaultURL']
-            del info['hasBundle']
-            del info['contextRoot']
-            del info['isHazMat']
+            entry.category = category
+            entry.name = info.get('prdName')
+            #entry.colors = []
+            entry.brand = info.get('brandName')
+            entry.full_price = info.get('listPrice')
+            entry.discounted_price = info.get('salePrice')
+            #entry.complexity = 
+            
             for variation in variations:
-                entry = dict(info)
-                entry['category'] = category
-                entry['prd_id'] = pid
-                del variation['imgViews']
-                entry.update(variation)
-                self.db[self.collection_name].insert(entry)
+                cpid = variation.get('colorPrdId')
+                entry.color_name = variation.get('colorName')
+                entry.img_url = img_url_template % cpid
+                entry.product_url = item.get('product_url').replace('category.jsp?', 'product_details.jsp?productId=%s&'%(cpid))
+                self.db[self.collection_name].insert(entry.to_dict())
 
