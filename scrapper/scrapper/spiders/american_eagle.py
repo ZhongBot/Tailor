@@ -2,7 +2,6 @@ import scrapy
 import pdb
 import re, json
 
-from scrapper.items import menTop
 from scrapper.pipelines import *
 
 class americanEagleSpider(scrapy.Spider):
@@ -35,7 +34,7 @@ class americanEagleSpider(scrapy.Spider):
         for i, sl in enumerate(sub_cat_links):
             url = response.urljoin(sl)
             request = scrapy.Request(url, callback=self.parse_detailed_category)
-            request.meta['category'] = sub_categories[i]
+            request.meta['category'] = [category, sub_categories[i]]
             yield request
 
     def parse_detailed_category(self, response):
@@ -45,4 +44,5 @@ class americanEagleSpider(scrapy.Spider):
         res = dict()
         res['category'] = response.meta['category']
         res['products'] = data['availablePrds'].items()
+        res['product_url'] = response.url
         yield res
