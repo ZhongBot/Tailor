@@ -23,24 +23,23 @@ class hollisterSpider(scrapy.Spider):
             category = sub_cat.css('a::text').extract()[0]
             url = response.urljoin(link)
             request = scrapy.Request(url, callback=self.parse_category)
-            request.meta['category'] = category
+            request.meta['category'] = [category]
             yield request
 
     def parse_category(self, response):
-        res = response.css('.current')
-        
+        res = response.css('.selected')
         #Holister's website has two types of subcategories, one which has a further list of subcategory
         #the other does not. If len(res) > 1 means there is no sub category
-        if len(res) == 1:
-            res = response.css('.current').css('ul').css('li')
+        sub_category = res.css('.tertiary')
+        if sub_category and not sub_category.css('li').css('.current'):
+            res = sub_category.css('li')
             for sub_cat in res:
                 link = sub_cat.css('a::attr(href)').extract()[0]
                 category = sub_cat.css('a::text').extract()[0]
                 url = response.urljoin(link)
                 request = scrapy.Request(url, callback=self.parse_category)
-                request.meta['category'] = response.meta['category'] + category
+                request.meta['category'] = response.meta['category'] + [category]
                 yield request
-    
         #Retrieve the products
         res = response.css('.grid-product')
         
