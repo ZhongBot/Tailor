@@ -1,5 +1,5 @@
 class color(object):
-    possible_ratings = ('Dislike', 'Ok', 'Like')
+    possible_ratings = {'Dislike':1, 'Ok':2, 'Like':3}
     upper_bound = 1
     lower_bound = 0
     
