@@ -23,3 +23,10 @@ class user(object):
     prefer_size = default 
     
     purchases = {}
+    
+    def defaultMembership(self):
+    '''
+    Create the default membership func for the user and attach it to the user
+    '''
+    return NotImplemented
+
