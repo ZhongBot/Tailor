@@ -1,20 +1,13 @@
-class inference(enum):
+from enum import Enum
+
+class inference(Enum):
+    none = 0
     if_func = 1
     then_func = 2
 
-class fuzzy_variable(enum):
-    """
-    These fuzzy variables are used to determine how many recommendations are shown to the user
-    """
-    color = 1
-    complexity = 2
-    size = 3
-
-class func_type(enum):
-    bell_membership_func = 1
 
 class membership_function(object):
-    def __init__(self, fuzzy_var, inf, func_type)
+    def __init__(self, fuzzy_var, inf, func_type):
         """
         :param fuzzy_var: Tells us which one of the fuzzy variables are we dealing with 
         :param inf: There are two membership functions in the fuzzy inference. If and then.
@@ -27,9 +20,15 @@ class membership_function(object):
         """
         self.fuzzy_variable = fuzzy_var
         self.inference = inf
-        
-        if func_type == 1:
-            self.membership_funcs = (bell_function(s, i, fuzzy_var) for i, s in enumerate(fuzzy_var.possible_ratings))
+        self.membership_funcs = (func_type(n, p, fuzzy_var) for n, p in fuzzy_var.possible_ratings.items())
      
 
+    def to_dict(self):
+        _dict = {
+            'inference': self.inference.value,
+           'fuzzy_var':self.fuzzy_variable.to_dict()
+        }
+        for func in self.membership_funcs:
+            _dict.update({func.pos: func.to_dict()})
+        return _dict
         
