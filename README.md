@@ -12,12 +12,13 @@ Example: LZ-new-branch
     3. Image Recognition
     4. Recommendation
 
-- Timeline
-1-3 should be done by the end of reading week
-
 Tech Stack
 - Python
 - MongoDB
 
-Februray 8th:
--Spider on American Eagle is now working. Run 'scrapy crawl american_eagle_spider -o test.json' in the spider folder and observe the results
+To run spiders to crawl for data:
+scrapy crawl american_eagle_spider
+
+To generate a user with default membership funcs:
+python script/setup_db.py
+
