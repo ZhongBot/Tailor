@@ -24,6 +24,6 @@ def worker(db_conn, user, purchase):
     #Fourth return recommendations
     
 if __name__ == '__main__':
-    db = connect_to_mongo() 
+    db = connect_to_mongo()
     worker(db, user, purchase)
 
