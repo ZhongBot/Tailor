@@ -1,7 +1,8 @@
 class user_purchase(object):
-    def __init__(self, user_id, product_id, default='_not_available_'):
+    def __init__(self, user_id, product_id, price, default='_not_available_'):
         self.user_id = user_id
         self.product_id = product_id
+        self.price = price
         self.color_rating = default
         self.complexity_rating = default
         self.size_rating = default
@@ -15,6 +16,7 @@ class user_purchase(object):
         _dict = {
             'user_id': self.user_id,
             'product_id': self.product_id,
+            'price': self.price,
             'color_rating': self.color_rating,
             'complexity_rating': self.complexity_rating,
             'size_rating': self.size_rating
