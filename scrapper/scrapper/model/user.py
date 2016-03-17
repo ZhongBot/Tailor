@@ -41,7 +41,7 @@ class user(object):
                 if t == 'size':
                     func = [func]
                 for f in func:
-                    _dict['user_membership_funcs'][t][str(f.inference.value)] = f.to_dict()
+                    _dict['user_membership_funcs'][t]['inf_'+str(f.inference.value)] = f.to_dict()
                 continue
             #Default to this..
             _dict['user_memebership_funcs'][t] = self.default

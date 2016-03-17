@@ -49,7 +49,7 @@ class rec_size(object):
     """
     usually used in the then func
     """
-    possible_ratings = {'less':0, 'same':1, 'more':1}
+    possible_ratings = {'less':0, 'same':1, 'more':2}
     possible_ratings = OrderedDict(sorted(possible_ratings.items(), key=lambda t:t[1]))
     upper_bound = 1
     lower_bound = 0

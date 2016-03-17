@@ -20,15 +20,14 @@ class membership_function(object):
         """
         self.fuzzy_variable = fuzzy_var
         self.inference = inf
-        self.membership_funcs = (func_type(n, p, fuzzy_var) for n, p in fuzzy_var.possible_ratings.items())
+        self.membership_funcs = [func_type(n, p, fuzzy_var) for n, p in fuzzy_var.possible_ratings.items()]
      
 
     def to_dict(self):
         _dict = {
-            'inference': self.inference.value,
-           'fuzzy_var':self.fuzzy_variable.to_dict()
+            'fuzzy_var':self.fuzzy_variable.to_dict()
         }
         for func in self.membership_funcs:
-            _dict.update({func.pos: func.to_dict()})
+            _dict.update({'rel_pos_' + str(func.pos): func.to_dict()})
         return _dict
         

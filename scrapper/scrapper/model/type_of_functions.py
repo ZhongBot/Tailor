@@ -30,8 +30,8 @@ class bell_function(object):
             'b': self.b,
             'c': self.c,
             'upper_bound': self.upper_bound,
-            'lower_bound':self.lower_bound,
-            'eqn': self.eqn,
+            'lower_bound': self.lower_bound,
+            'eqn': self.eqn, 
             'type': 'bell function'
         }
         return _dict

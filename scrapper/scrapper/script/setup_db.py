@@ -6,8 +6,9 @@ def setup_user(db, name):
     u = user()
     u.user_name = name
     u.defaultMembership()
-    print u.to_dict()
-    db[collection].insert(u.to_dict())
+    content =  u.to_dict()
+    db[collection].insert(content)
+    print content
 
 if __name__ == '__main__':
     db = connect_to_mongo()
