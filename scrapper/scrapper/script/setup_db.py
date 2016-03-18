@@ -16,11 +16,21 @@ def setup_user(db, name):
     
     return u
 
-def add_purchase(co, user, color_s=2, complexity_s=2, size_s=3, cond={}):
+def add_purchase(co, user, product, color_s=2, complexity_s=2, size_s=3):
     '''
     Associate a user with a purchase.
     Update the user's membership_funcs based on user's ratings.
+
+    :param co: The collection to insert into
+    :param user: The user to associate with the purchase
+    :param product: The product that is associated with the purchase
+    :param color_s: The color score
+    :param complexity_s: The complexity score
+    :param size_s: The size score
     '''
+    '''
+    This needs to be moved to the place that checks if the purchase is valid!
+    
     if len(cond.items()) == 0:
         product = co.find_one()
     else:
@@ -28,6 +38,9 @@ def add_purchase(co, user, color_s=2, complexity_s=2, size_s=3, cond={}):
     if len(product) == 0:
         print "couldn't find a product"
         return False, None
+    
+    '''
+
     price = [
                 product.get('full_price', None), 
                 product.get('discounted_price', None)
@@ -47,10 +60,10 @@ def add_purchase(co, user, color_s=2, complexity_s=2, size_s=3, cond={}):
     purchase.price = price
     entry = purchase.to_dict()
     db['purchase_history'].insert(entry)
-    return True, purchase
+    return purchase
 
 if __name__ == '__main__':
     db = connect_to_mongo()
     name = 'admin'
-    #user = setup_user(db, name)
-    add_purchase(db['tops'], db['tops'].find_one({}))
+    user = setup_user(db, name)
+    add_purchase(db['tops'], db['user'].find_one({}), db['tops'].find_one({}))

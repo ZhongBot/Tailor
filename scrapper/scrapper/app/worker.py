@@ -15,7 +15,7 @@ def worker(db_conn, user, purchase):
     '''
 
     #First validate the purchase
-
+    
 
     #Second retrieve the fuzzy variable's values
 
