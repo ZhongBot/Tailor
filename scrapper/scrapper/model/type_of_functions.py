@@ -38,7 +38,6 @@ class bell_function(object):
             'c': self.c,
             'upper_bound': self.upper_bound,
             'lower_bound': self.lower_bound,
-            'eqn': self.eqn, 
             'type': 'bell function',
             'membership': self.membership
         }
