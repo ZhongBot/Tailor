@@ -61,7 +61,7 @@ class user(object):
                                           inference.if_func, 
                                           bell_function
                                          )
-        color_then_mf = membership_function(fuzzy.rec_size(),
+        color_then_mf = membership_function(fuzzy.satisfaction(),
                                             inference.then_func,
                                             bell_function
                                            )
@@ -73,7 +73,7 @@ class user(object):
                                                inference.if_func,
                                                bell_function
                                               )
-        complexity_then_mf = membership_function(fuzzy.rec_size(),
+        complexity_then_mf = membership_function(fuzzy.satisfaction(),
                                                  inference.then_func,
                                                  bell_function
                                                 )
