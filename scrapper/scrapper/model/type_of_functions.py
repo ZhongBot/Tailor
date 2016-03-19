@@ -1,3 +1,5 @@
+import math
+
 class bell_function(object):
 
     eqn = '1/(1 + math.pow(abs(({x} - {c})/{a}), 2*{b}))'
@@ -16,10 +18,15 @@ class bell_function(object):
         self.length = len(fuzzy_var.possible_ratings)
         self.a = default_a
         self.b = default_b
-        self.c = pos/(self.length-1) if not default_c else default_c
+        self.c = pos/float(self.length-1) if not default_c else default_c
         self.upper_bound = fuzzy_var.upper_bound
         self.lower_bound = fuzzy_var.lower_bound
-        self.c = self.c * self.upper_bound 
+        center = self.c * (self.upper_bound - self.lower_bound)
+        self.c = self.c * self.upper_bound
+        self.membership = []
+        for i in range (self.upper_bound - self.lower_bound + 1):
+            val = self.eqn.format(x=i, c=center, a=self.a, b=self.b)
+            self.membership.append(eval(val))
     
     def to_dict(self):
         _dict = {
@@ -32,7 +39,8 @@ class bell_function(object):
             'upper_bound': self.upper_bound,
             'lower_bound': self.lower_bound,
             'eqn': self.eqn, 
-            'type': 'bell function'
+            'type': 'bell function',
+            'membership': self.membership
         }
         return _dict
 

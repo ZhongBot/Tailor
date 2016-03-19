@@ -3,7 +3,7 @@ from collections import OrderedDict
 class color(object):
     possible_ratings = {'Dislike':0, 'Ok':1, 'Like':2}
     possible_ratings = OrderedDict(sorted(possible_ratings.items(), key=lambda t:t[1]))
-    upper_bound = 1
+    upper_bound = 10
     lower_bound = 0
     
     def to_dict(self):
@@ -17,7 +17,7 @@ class color(object):
 class complexity(object):
     possible_ratings = {'Not complex enough':0, 'Just right':1, 'Too complex':2}
     possible_ratings = OrderedDict(sorted(possible_ratings.items(), key=lambda t:t[1]))
-    upper_bound = 1
+    upper_bound = 10
     lower_bound = 0
     
     def to_dict(self):
