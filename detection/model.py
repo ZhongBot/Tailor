@@ -1,7 +1,10 @@
-class PatternType:
+from enum import Enum
+
+
+class PatternType(Enum):
     Stripe = 1
     Dot = 2
-    Plain = 3
+    Solid = 3
     Check = 4
 
 
