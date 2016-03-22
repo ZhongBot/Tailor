@@ -1,9 +1,10 @@
 
-def fuzzy_variable_updater(user, fuzzy_var, inf, origin_mf, new_entry):
+def fuzzy_variable_updater(db, user, fuzzy_var, inf, origin_mf, new_entry):
     '''
     Given a user and the the membership func to update. Update the membership func 
     with respect to momentum.
 
+    :param db: The database to write to
     :param user: The user to update
     :param fuzzy_var: The fuzzy variable membership func to update
     :param inf: Specify whether we are updating the if or the then func
@@ -31,4 +32,9 @@ def fuzzy_variable_updater(user, fuzzy_var, inf, origin_mf, new_entry):
     '''
     TODO: Update the user mongo document and set the correct membership function to cur_mf
     '''
+    
     #return 'updated!', True
+
+if __name__ == '__main__':
+     
+    fuzzy_varaible_updater(db, user, fuzzy_var, inf, origin_mf, new_entry)
