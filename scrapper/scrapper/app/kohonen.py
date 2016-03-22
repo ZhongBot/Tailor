@@ -5,17 +5,14 @@ class Kohonen(object):
         self.vector_size = vector_size
         self.num_cluster = num_cluster
         self.learning_rate = learning_rate
+        # initialize random weights from [0, 1)
         self.weight = np.random.rand(vector_size, num_cluster)
         self.max_epoch = max_epoch
         self.input_vectors = input_vectors
 
-        print("initial learning rate: " + str(self.learning_rate))
-        print("initial weight: " + str(self.weight))
-
-
     def geometric_decay(self):
+        # geometric decay of learning rate
         self.learning_rate *= 0.2
-        print("updated learning rate:" + str(self.learning_rate))
 
     # returns the node that is closest to the vector
     def apply_input_vector(self, vector):
@@ -25,13 +22,10 @@ class Kohonen(object):
         vector = np.array(vector)
 
         for col in range(0, self.num_cluster):
-            print("col: " + str(col))
-            print("weight col: " + str(self.weight[:,col]))
-            print("vector: " + str(vector))
             I[col] = self.weight[:,col] - vector
             I[col] = np.square(I[col])
             closeness = np.sum(I[col])
-            print("closeness: " + str(closeness))
+            # calculate which weight column the input vector is the closest to
             if closeness < closest:
                 closest = closeness
                 closest_index = col
@@ -39,13 +33,13 @@ class Kohonen(object):
         return vector, closest_index
 
     def update_weight(self, vector, col):
-        print("updated weight col: " + str(col))
+        # update weights of the column that was calculated to be the closest to input
         self.weight[:,col] += self.learning_rate * (vector - self.weight[:,col])
-        print("updated weight: " + str(self.weight))
 
     def train(self):
         for i in range(0, self.max_epoch):
             for input_vector in self.input_vectors:
                 closest_vector, col = self.apply_input_vector(input_vector)
                 self.update_weight(closest_vector, col)
+            # decay learning rate every complete epoch
             self.geometric_decay()

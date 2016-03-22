@@ -18,6 +18,9 @@ Tech Stack
 
 To run spiders to crawl for data:
 scrapy crawl american_eagle_spider
+scrapy crawl uniqlo_spider
+scrapy crawl hollister_spider
+scrapy crawl hm_spider
 
 To generate a user with default membership funcs:
 python script/setup_db.py
