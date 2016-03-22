@@ -62,6 +62,17 @@ def add_purchase(co, user, product, color_s=2, complexity_s=2, size_s=3):
     db['purchase_history'].insert(entry)
     return purchase
 
+    def fetch_all_porducts(db=None):
+        if not db:
+            db = connect_to_mongo() 
+        prds = db['tops'].find({})
+        import pdb
+        pdb.set_trace()   
+        for prd in prds:
+
+            print prd            
+
+
 if __name__ == '__main__':
     db = connect_to_mongo()
     name = 'admin'
