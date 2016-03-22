@@ -38,8 +38,8 @@ class americanEaglePipeline(object):
             entry.brand = info.get('brandName')
             entry.full_price = info.get('listPrice')
             entry.discounted_price = info.get('salePrice')
-            #entry.complexity = 
-            
+            #entry.complexity =
+
             for variation in variations:
                 cpid = variation.get('colorPrdId')
                 entry.color_name = variation.get('colorName')
@@ -64,8 +64,48 @@ class hollisterPipeline(object):
             entry.brand = prod.get('brand')
             entry.full_price = prod.get('full_price')
             entry.discounted_price = prod.get('discounted_price')
-            #entry.color_name = 
-            entry.img_url = prod.get('img_url') 
+            #entry.color_name =
+            entry.img_url = prod.get('img_url')
             entry.product_url = prod.get('product_url')
             self.db[self.collection_name].insert(entry.to_dict())
 
+class hmPipeline(object):
+    collection_name = 'tops'
+
+    def open_spider(self, spider):
+        self.db = connect_to_mongo()
+
+    def close_spider(self, spider):
+        disconnect_from_mongo(self.db)
+
+    @check_spider_pipeline
+    def process_item(self, item, spider):
+        entry = topItem()
+        entry.category = item['category']
+        entry.name = item['name']
+        entry.brand = item['brand']
+        entry.full_price = item['full_price']
+        entry.img_url = item['img_url']
+        entry.product_url = item['product_url']
+        self.db[self.collection_name].insert(entry.to_dict())
+
+
+class uniqloPipeline(object):
+    collection_name = 'tops'
+
+    def open_spider(self, spider):
+        self.db = connect_to_mongo()
+
+    def close_spider(self, spider):
+        disconnect_from_mongo(self.db)
+
+    @check_spider_pipeline
+    def process_item(self, item, spider):
+        entry = topItem()
+        entry.category = item['category']
+        entry.name = item['name']
+        entry.brand = item['brand']
+        entry.discounted_price = item['discounted_price']
+        entry.img_url = item['img_url']
+        entry.product_url = item['product_url']
+        self.db[self.collection_name].insert(entry.to_dict())
