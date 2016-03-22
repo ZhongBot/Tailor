@@ -16,6 +16,7 @@ class topItem(object):
 
     #List field
     #colors is populated by img rec
+    # note this is a single RGB score tuple!
     colors = default
     category = default    
 

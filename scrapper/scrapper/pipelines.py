@@ -11,6 +11,7 @@ import pymongo
 from scrapy import log
 from scrapy.exceptions import DropItem
 from scrapper.model.top import topItem
+from scrapper.model.item_color_score import ItemColorScore
 from scrapper.spiders.base import check_spider_pipeline
 from scrapper.config.db_config import connect_to_mongo, disconnect_from_mongo
 
@@ -44,6 +45,9 @@ class americanEaglePipeline(object):
                 cpid = variation.get('colorPrdId')
                 entry.color_name = variation.get('colorName')
                 entry.img_url = img_url_template % cpid
+                item_color_score = ItemColorScore(entry.img_url)
+                item_color_score.detect_colors()
+                entry.colors = item_color_score.color_score
                 entry.product_url = item.get('product_url').replace('category.jsp?', 'product_details.jsp?productId=%s&'%(cpid))
                 self.db[self.collection_name].insert(entry.to_dict())
 
@@ -64,7 +68,9 @@ class hollisterPipeline(object):
             entry.brand = prod.get('brand')
             entry.full_price = prod.get('full_price')
             entry.discounted_price = prod.get('discounted_price')
-            #entry.color_name =
+            item_color_score = ItemColorScore(entry.img_url)
+            item_color_score.detect_colors()
+            entry.colors = item_color_score.color_score
             entry.img_url = prod.get('img_url')
             entry.product_url = prod.get('product_url')
             self.db[self.collection_name].insert(entry.to_dict())
@@ -86,6 +92,9 @@ class hmPipeline(object):
         entry.brand = item['brand']
         entry.full_price = item['full_price']
         entry.img_url = item['img_url']
+        item_color_score = ItemColorScore(entry.img_url)
+        item_color_score.detect_colors()
+        entry.colors = item_color_score.color_score
         entry.product_url = item['product_url']
         self.db[self.collection_name].insert(entry.to_dict())
 
@@ -107,5 +116,8 @@ class uniqloPipeline(object):
         entry.brand = item['brand']
         entry.discounted_price = item['discounted_price']
         entry.img_url = item['img_url']
+        item_color_score = ItemColorScore(entry.img_url)
+        item_color_score.detect_colors()
+        entry.colors = item_color_score.color_score
         entry.product_url = item['product_url']
         self.db[self.collection_name].insert(entry.to_dict())
