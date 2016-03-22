@@ -54,8 +54,6 @@ class user(object):
         that will recommend everything. (ok is 1 across, big/small is 0 across)
         -As the users enter purchases, it should be reshaped
         '''
-        rec_size = fuzzy.rec_size()
-        
         #color fuzzy inference membership functions
         color_if_mf = membership_function(fuzzy.color(), 
                                           inference.if_func, 

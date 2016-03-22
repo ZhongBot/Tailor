@@ -67,7 +67,7 @@ class size(object):
             'possible_ratings': self.possible_ratings,
             'upper_bound': 135,
             'lower_bound': 80,
-            'name': self.size
+            'name': self.name
         }
         return _dict
 
