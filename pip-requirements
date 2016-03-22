@@ -1,6 +1,6 @@
 Scrapy==1.0.5
 Flask==0.10.1
-﻿cycler==0.10.0
+cycler==0.10.0
 enum34==1.1.2
 matplotlib==1.5.1
 numpy==1.6.1
@@ -12,3 +12,4 @@ pytz==2015.7
 scipy==0.9.0
 six==1.10.0
 virtualenv==13.1.2
+pymongo==3.2
