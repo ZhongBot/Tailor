@@ -77,7 +77,7 @@ def main():
 
         tops = db[collection]
         print "Number of items to process: %s" % tops.count()
-        for idx, d in enumerate(tops.find()[1070:]):
+        for idx, d in enumerate(tops.find()[:]):
             top_id = d['_id']
             img_url = str(d['img_url'])
 
