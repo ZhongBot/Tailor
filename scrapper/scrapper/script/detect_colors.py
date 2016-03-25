@@ -77,19 +77,28 @@ def main():
 
         tops = db[collection]
         print "Number of items to process: %s" % tops.count()
-        for d in tops.find()[:]:
+        for idx, d in enumerate(tops.find()[:]):
             top_id = d['_id']
             img_url = str(d['img_url'])
+
             # image names may be missing http:// in front
+            if img_url.startswith("//"):
+                img_url = "http://" + img_url[2:]
+
             if not img_url.startswith("http://"):
                 img_url = "http://" + img_url
 
-            item_color = ItemColor(str(top_id), img_url)
-            item_color.detect_colors()
-            print "Processing id %s with Color %s" %(top_id, item_color.rgb_colors)
+            print "%d: Processing id %s with %s" %(idx, top_id, img_url)
 
-            # update field for id with color
-            tops.update({"_id": top_id}, {"$set": {"colors": item_color.rgb_colors}})
+            try:
+                item_color = ItemColor(str(top_id), img_url)
+                item_color.detect_colors()
+
+                # update field for id with color
+                tops.update({"_id": top_id}, {"$set": {"colors": item_color.rgb_colors}})
+            except Exception, e:
+                print '[ERROR] %s' % (e)
+                continue
 
         print "Count of items with no colors: %s" % tops.find({"colors": "_not_available_"}).count()
         print "Processing complete"
