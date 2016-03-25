@@ -4,7 +4,9 @@ import colorific
 import urllib
 import os
 import math
+import logging
 
+logging.basicConfig(filename='detect_color.log', format='%(asctime)s %(message)s')
 
 # Object storing an img_url and an "RGB" score
 class ItemColor(object):
@@ -19,6 +21,7 @@ class ItemColor(object):
         """
         self.id = id
         self.img_url = img_url
+        self.palette = None
 
     def detect_colors(self):
         """
@@ -35,6 +38,7 @@ class ItemColor(object):
         urllib.urlretrieve(self.img_url, filepath)
 
         palette = colorific.extract_colors(filepath)
+        self.palette = palette
         self.rgb_colors = colors_to_score_string(palette.colors)
 
 
@@ -97,7 +101,11 @@ def main():
                 # update field for id with color
                 tops.update({"_id": top_id}, {"$set": {"colors": item_color.rgb_colors}})
             except Exception, e:
-                print '[ERROR] %s' % (e)
+                print "%s - img_url = %s" % (e, img_url)
+                logging.warning("%s - img_url = %s" % (e, img_url))
+                if (item_color.palette is not None):
+                    print "%s: %s" % (img_url, str(item_color.palette))
+                    logging.warning("%s: %s" % (img_url, str(item_color.palette)))
                 continue
 
         print "Count of items with no colors: %s" % tops.find({"colors": "_not_available_"}).count()
