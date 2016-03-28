@@ -58,15 +58,15 @@ class size(object):
     """
     possible_ratings = {'too small':0, 'small':1, 'just right':2, 'big':3, 'too big':4}
     possible_ratings = OrderedDict(sorted(possible_ratings.items(), key=lambda t:t[1]))
-    upper_bound = 135
-    lower_bound = 80
+    upper_bound = 51
+    lower_bound = 32
     name = 'size'
     
     def to_dict(self):
         _dict = {
             'possible_ratings': self.possible_ratings,
-            'upper_bound': 135,
-            'lower_bound': 80,
+            'upper_bound': 51,
+            'lower_bound': 32,
             'name': self.name
         }
         return _dict

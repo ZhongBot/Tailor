@@ -64,8 +64,8 @@ NEWSPIDER_MODULE = 'scrapper.spiders'
 ITEM_PIPELINES = {
     'scrapper.pipelines.americanEaglePipeline': 300,
     'scrapper.pipelines.hollisterPipeline':300,
-    'scrapper.pipelines.uniqloPipeline':300,
     'scrapper.pipelines.hmPipeline':300,
+    'scrapper.pipelines.uniqloPipeline':300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
